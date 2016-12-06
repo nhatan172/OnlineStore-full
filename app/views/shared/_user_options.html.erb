@@ -1,0 +1,19 @@
+<div class="col-md-3">
+	<div class="user_info">
+		<%= gravatar_for @user, size: 50 %>											
+		<h5 class='name'> <%= @user.name %> </h5>
+	</div>
+	<!-- Single button -->
+	<div class="">
+		<ul>
+			<% if current_user?(@user) %>
+				<li><%= link_to "Account information", user_path(current_user) %></li>
+				<li><%= link_to "Edit Information", edit_user_path(current_user) %></li>
+				<li><%= link_to "Address list", address_lists_path %></li>
+				<% if !current_user.admin? %>
+				<li><%= link_to "My orders", orders_path %></li>
+				<% end %>
+			<% end %>
+		</ul>
+	</div>
+</div>

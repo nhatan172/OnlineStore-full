@@ -1,0 +1,23 @@
+<%= render 'layouts/tool' %>
+<body>
+<div class="index row">
+	<div class="list-categories col-xs-2">
+	<div class="list-group">
+		<a class="list-group-item list-group-item-action list-group-item-info">Categories</a>
+		<%= link_to "All", categories_path , :class => "list-group-item list-group-item-action"%>
+		<% Category.all.each do |c| %>
+		<%= link_to  "#{c.name}", c, :class => "list-group-item list-group-item-action" %>
+		<% end %>
+	</div>
+	</div>
+	<div class="productview row">
+		<% if @products.any? %>
+			<%= render @products %>
+		<div class="paginate">
+		<%= will_paginate %>			
+			<% else %>
+			<%= @text ="<h3>No product found</h3>".html_safe %>
+			<% end %>
+	</div>
+</div>
+</body>

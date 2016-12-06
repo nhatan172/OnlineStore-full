@@ -1,0 +1,21 @@
+<div class="producta col-xs-3 col-lg-3">
+	<% if FileTest.exist?("#{Rails.root}/app/assets/images/products/#{product.id}.jpg") %>
+		<%= image_tag("products/#{product.id}" , :size => "175x260") %>
+	<% else %>
+	<%= image_tag("products/1" , :size => "175x260") %>
+	<% end %>
+	<%= link_to product do %>
+	<%= @text ="<h3>#{product.name}</h3>".html_safe %>
+	<% end %>
+	<%= @text = ("<p>Price : #{product.price.to_s}</p>").html_safe  %>
+	<% if (product.amount > 0) %>
+	<%= @text = "<p>Available</p>".html_safe %> 
+	<% else %>
+	<%= @text = "<p>Unavailable</p>".html_safe %>
+	<% end%>
+	<%= form_for(product.cartdetails.build) do |f| %>
+      <%= f.hidden_field :product_id, {:value => product.id} %>
+      <%= f.submit "Add to Cart" , class: "btn btn-large btn-primary" %>
+    <% end %>
+
+</div>

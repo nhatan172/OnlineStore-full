@@ -1,0 +1,25 @@
+<%= render 'layouts/tool' %>
+<h4>
+<%= link_to "Home" , root_path %>
+<span class="glyphicon glyphicon-chevron-right"></span> All</h4>
+<body>
+<div class="index row">
+	<div class="list-categories col-xs-2">
+	<div class="list-group">
+		<a class="list-group-item list-group-item-action list-group-item-info">Categories</a>
+		<%= link_to "All", categories_path , :class => "list-group-item list-group-item-action"%>
+		<% Category.all.each do |c| %>
+		<%= link_to  "#{c.name}", c, :class => "list-group-item list-group-item-action" %>
+		<% end %>
+	</div>
+	</div>
+	<div class="productview row">
+		<% if @products.any? %>
+			<%= render @products %>
+		<%= will_paginate @products%>			
+			<% else %>
+			<%= @text ="<h3>Không có sản phẩm</h3>".html_safe %>
+			<% end %>
+	</div>
+</div>
+</body>

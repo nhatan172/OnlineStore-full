@@ -1,0 +1,71 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+	<%= render 'shared/user_options' %>
+
+	<div class="col-md-9 dashboard">
+	<% if !current_user.admin? %>
+		<h1>My Account Information</h1>
+		<% end %>
+		<div class="dashboard-account row">
+			<div class="dashboard-header">
+				<h2>Account Information</h2>
+				<% if current_user?(@user) %>
+					<%= link_to "Edit >", edit_user_path(current_user) %>
+				<% end %>
+			</div>
+			<div class="col-md-6 left">
+				<table>
+					<tbody>
+						<tr>
+							<td>Name:</td>
+							<td><%= @user.name %></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><%= @user.email %></td>
+						</tr>
+						<% if !@user.gender.blank? %>
+							<tr>
+							<td>Gender:</td>
+							<td><%= @user.gender %></td>
+							</tr>
+						<% end %>
+						<% if !@user.birthday.nil? %>
+							<tr>
+							<td>Birthday:</td>
+							<td><%= @user.birthday %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="dashboard-header">
+			<h2>Address list</h2>
+			<% if current_user?(@user) %>
+				<%= link_to "See all >", address_lists_path %>
+			<% end %>
+		</div>
+		<div class="dashboard-address">
+			<% unless @address_list.nil? %>
+				<div class="panel panel-default item col-md-6">
+					<div class="panel-body">
+						<p class="name"><%= @address_list.name %></p>
+						<p class="address">Address: <%= @address_list.to_string() %></p>
+						<p class="phone">Phone number: <%= @address_list.phone_number %></p>
+						<p class="action">
+							<% if current_user?(@user) %>
+								<%= link_to "Edit", edit_address_list_path(@address_list.id), class: 'btn btn-default btn-info' %>
+							<% end %>
+						</p>
+					</div>
+				</div>
+			<% else %>
+				<%= @text ="<h3>Not have any addresses</h3>".html_safe %>
+				<% if current_user?(@user) %>
+					<%= link_to 'Create new address', new_address_list_path, class: 'btn btn-default btn-primary btn-info' %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

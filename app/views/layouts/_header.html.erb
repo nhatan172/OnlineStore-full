@@ -1,0 +1,58 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+  <ul class="nav navbar-nav navbar-left">
+    <li><%= link_to( image_tag("logo", :size => "40x40"), root_path, id: "logo_image" )%></li>
+    <li><%= link_to "Online Store", root_path, id: "logo" %></li>
+    </ul>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home",   root_path %></li>
+        <li><%= link_to "Help",   'https://goo.gl/93Q1vz' %></li>
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+            <li><%= link_to "Users", users_path %></li>
+                      <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Account Information", current_user %></li>
+              <li><%= link_to "Edit Information", edit_user_path(current_user) %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+            </ul>
+          </li>
+          <li><%= link_to "Orders list", orders_path %></li>
+          <% else %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Account Information", current_user %></li>
+              <li><%= link_to "Edit Information", edit_user_path(current_user) %></li>
+              <li><%= link_to "Orders history", orders_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+            </ul>
+          </li>
+          <li><%= link_to carts_path do %>
+          <span class="glyphicon glyphicon-shopping-cart"></span>Cart
+          <% if logged_in? %>
+          <span class="badge">
+          <%=current_cart.cartdetails.count %>
+          </span>
+          <% end %>
+          <% end %>
+          <% end %>
+          </li>
+        <% else %>
+          <li><%= link_to "Log in", login_path %></li>
+          <li><%= link_to "Sign up", signup_path %></li>
+          <li><%= link_to carts_path do %>
+          <span class="glyphicon glyphicon-shopping-cart"></span>Cart
+          </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,54 @@
+<h4>
+<%= link_to "Home" , root_path %>
+<span class="glyphicon glyphicon-chevron-right"></span> Order detail</h4>
+<div class="panel panel-default">
+  <div class="panel-heading">Oder</div>
+
+  <table class="table table-striped" id="cart_items">
+      <tr>
+        <td  colspan="4">
+          Customer name :  <%= @order.user.name %>
+        </td>
+      </tr>
+    <tr>
+      <td class="payment" colspan="4">
+        Payment :  <%= number_to_currency @order.payment %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        Address :  <%= @order.address %>
+        </td>
+    </tr>
+    <tr>
+    <td colspan="4">
+      Note : <%= @order.note %>
+      </td>
+    </tr>
+    <tr>
+    <td colspan="4">
+      Date time : <%= @order.created_at %>
+      </td>
+    </tr>
+    <tr>
+      <th>Product</th>
+      <th class="price">Unit Price</th>
+      <th class="price">Full Price</th>
+      <th class="price">Quantity</th>
+
+
+    <% for cart_item in @order.order_details %>
+      <tr class="<%= cycle :odd, :even %>">
+        <td><%= link_to cart_item.product , class: 'link_to_p' do %>
+        <div class="link_to_p"><%= cart_item.product.name %></div>
+        <% end %>
+        </td>
+        <td class="price"><%= number_to_currency(cart_item.unit_price) %></td>
+        <td class="price"><%= number_to_currency(cart_item.full_price) %></td>
+        <td class="price"><%= cart_item.amount%></td>
+        <% end %>
+</tr>
+</tr>
+
+</table>
+</div>

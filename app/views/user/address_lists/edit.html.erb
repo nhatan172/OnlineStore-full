@@ -1,0 +1,32 @@
+<% provide(:title, "Edit Address") %>
+<h1>Edit Address</h1>
+
+<div class="row">
+
+	<%= render 'shared/user_options' %>
+
+	<div class="col-md-6">
+		<%= form_for(@address_list) do |f| %>
+			<%= render 'shared/error_messages' %>
+			<%= f.label :name %>
+			<%= f.text_field :name, class: 'form-control' %>
+			<%= f.hidden_field :user_id, :value => @user.id %>
+			<%= f.label :phone_number %>
+			<%= f.text_field :phone_number, class: 'form-control' %>
+
+			<%= f.label :province %>
+			<%= collection_select :address1, :any2, Province.all, :id, :name, {prompt: true, remote: true}, {:id => 'province', :class => 'form-control'} %>
+
+			<%= f.label :district %>
+			<%= collection_select :address1, :any, District.all.where(province_id: :province_id), :id, :name, {prompt: true}, {:id => 'district', :class => 'form-control'} %>
+
+			<%= f.label :ward %>
+			<%= collection_select :address_list, :ward_id, Ward.all.where(district_id: :district_id), :id, :name, {prompt: true}, {:id => 'ward', :class => 'form-control'} %>
+
+			<%= f.label :address %>
+			<%= f.text_area :address, class: 'form-control' %>
+			<br>
+			<%= f.submit "Save changes", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>
